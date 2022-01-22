@@ -12,17 +12,31 @@ export const typeDefs = gql`
     bookedBy: String
   }
   type Offices {
-    Size: Int!
+    size: Int!
     booked: Boolean
     bookedBy: String
+    place: String!
+    nameOfOffice: String!
   }
+
+  type Filter {
+    cars: Cars
+    offices: Offices
+  }
+
   type Query {
     me: User
     listAllCars: [Cars]
     listCarAvailable: [Cars]
-    listMyBooks: [Cars]
+    listMyBooksCars(filter: String): [Cars]
+    listAllOffices: [Offices]
+    listOfficeAvailable: [Offices]
+    listMyBooksOffices(filter: String): [Offices]
   }
+
   type Mutation {
+    addOffice(size: Int!, place: String!, nameOfOffice: String!): String!
+    bookAnOffice(nameOfOffice: String!): String!
     bookedACar(typeOfCar: String!): String!
     addCars(typeOfCar: String): String!
     register(username: String!, email: String!, password: String!): String!
