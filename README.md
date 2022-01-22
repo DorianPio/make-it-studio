@@ -29,3 +29,10 @@ And to access to the api you can go to
 http://127.0.0.1:8000
 
 If you have any questions don't hesitate
+
+
+PS admin account to test all features is:
+
+username: admin
+email: admin@admin.com
+password: admin
