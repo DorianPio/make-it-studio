@@ -32,6 +32,12 @@ export const resolvers = {
       }
       return cars;
     },
+
+    listMyBooks: async (_, args, { user }) => {
+      const userFind = await models.User.findById(user.id);
+      const cars = await models.Car.find({ bookedBy: userFind.username });
+      return cars;
+    },
   },
   Mutation: {
     /**********************************************************
@@ -89,7 +95,6 @@ export const resolvers = {
         typeOfCar = "basic car";
       }
       const userFind = await models.User.findById(user.id);
-      console.log("User === " + JSON.stringify(userFind));
       if (userFind.username != "admin") {
         throw new ForbiddenError("You're not allowed to do this !");
       }
@@ -103,6 +108,20 @@ export const resolvers = {
       } catch (err) {
         throw new Error("Something went wrong");
       }
+    },
+
+    bookedACar: async (_, { typeOfCar }, { user }) => {
+      const userFind = await models.User.findById(user.id);
+      const query = { typeOfCar: typeOfCar, booked: false };
+      const changement = { booked: true, bookedBy: userFind.username };
+
+      const car = await models.Car.findOneAndUpdate(query, {
+        $set: changement,
+      });
+      if (car) {
+        return "Booked successfully";
+      }
+      return "This car doesn't exist";
     },
   },
 };

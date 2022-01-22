@@ -11,13 +11,19 @@ export const typeDefs = gql`
     booked: Boolean
     bookedBy: String
   }
+  type Offices {
+    Size: Int!
+    booked: Boolean
+    bookedBy: String
+  }
   type Query {
     me: User
     listAllCars: [Cars]
     listCarAvailable: [Cars]
+    listMyBooks: [Cars]
   }
   type Mutation {
-    bookedACar: String!
+    bookedACar(typeOfCar: String!): String!
     addCars(typeOfCar: String): String!
     register(username: String!, email: String!, password: String!): String!
     login(username: String!, email: String!, password: String!): String!
