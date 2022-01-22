@@ -22,7 +22,6 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const token = req.headers.authorization;
     const user = checkUser(token);
-    console.log(user);
     return { models, user };
   },
 });
@@ -33,6 +32,4 @@ mongoose
     console.log("MongoDB Connected");
     return server.listen({ port: 4000 });
   })
-  .then(({ url }: { url: string }) => {
-    console.log(`Server running at ${url}`);
-  });
+  .then(({ url }: { url: string }) => {});

@@ -19,7 +19,6 @@ export const registerNewUser = async ({ username, email, password }) => {
     });
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   } catch (err) {
-    console.log(err);
     throw new Error("Error creating account");
   }
 };
